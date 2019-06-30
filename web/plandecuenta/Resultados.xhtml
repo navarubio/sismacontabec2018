@@ -39,14 +39,14 @@
                 </p:panel>
                 <p:panel id="listado">
                     <p:panelGrid columns="1" >
-                        
+
                         <p:dataTable id="datalist" value="#{plandecuentasController.itemsResultados}" var="item"
                                      selectionMode="single" selection="#{plandecuentaController.selected}"  style="width: 700px;"
                                      paginator="true"
                                      rowKey="#{item.idplandecuenta}"
-                                     rows="30"
+                                     rows="50" 
                                      rowStyleClass="#{item.idgeneralcuenta> 0 ? 'facturaabonada' : null} #{item.idgeneralcuenta== 0 ? 'asientocuadrado' : null}"
-                                     rowsPerPageTemplate="30,40,50"
+                                     rowsPerPageTemplate="50,100"
                                      >
 
                             <p:column>
@@ -61,25 +61,39 @@
                                 </f:facet>
                                 <h:outputText  value="#{item.descripcioncuenta}"/>
                             </p:column>
-                            <p:column style="text-align: right" width="100" >
+                            <p:column style="text-align: right" width="110" >
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundlecontable.ListPlandecuentaTitle_saldogeneral}"/>
+                                    <h:outputText value=" "/>
                                 </f:facet>
-                                <h:outputText value="#{item.saldogeneral}">
+                                <h:outputText value="#{item.saldogeneral}" rendered="#{item.idtiposaldocontable.idtiposaldocontable == 1  ? true:false}">
                                     <f:convertNumber type="currency" currencySymbol=" " />
                                 </h:outputText>
                             </p:column>
-                            <p:column style="text-align: center">
+                            <p:column style="text-align: right" width="110" >
                                 <f:facet name="header">
-                                    <h:outputText value="#{bundlecontable.ListPlandecuentaTitle_idtipocuentacontable}"/>
+                                    <h:outputText value=" "/>
                                 </f:facet>
-                                <h:outputText value="#{item.idtipocuentacontable.tipocuentacontable}"/>
+                                <h:outputText value="#{item.saldogeneral}" rendered="#{item.idtiposaldocontable.idtiposaldocontable == 2  ? true:false}">
+                                    <f:convertNumber type="currency" currencySymbol=" " />
+                                </h:outputText>
                             </p:column>
                             <p:columnGroup type="footer">
                                 <p:row>
-                                    <p:column colspan="2" style="text-align:right" footerText="Resultado del Ejercicio" />
-                                    <p:column footerText="#{plandecuentasController.comprobacionTotal}" style="text-align: right" />
+                                    <p:column colspan="2" style="text-align:right" footerText="Saldos Totales" />
+                                    <p:column footerText="#{plandecuentasController.comprobacionDebe}" style="text-align: right" />
+                                    <p:column footerText="#{plandecuentasController.comprobacionHaber}" style="text-align: right" />
                                 </p:row>
+                            <p:row>
+                                <p:column colspan="2" style="text-align:right" footerText="#{plandecuentasController.resultado}"/>
+                                <p:column footerText="#{plandecuentasController.resultadoFinal}"  style="text-align: right" rendered="#{plandecuentasController.visualizarResultado==1 ? true:false}" />
+                                <p:column />
+                                <p:column footerText="#{plandecuentasController.resultadoFinal}" style="text-align: right" rendered="#{plandecuentasController.visualizarResultado==2 ? true:false}" />
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2" style="text-align:right" footerText="Comprobar Totales:" />
+                                <p:column footerText="#{plandecuentasController.totalDeudor}" style="text-align: right" />
+                                <p:column footerText="#{plandecuentasController.totalAcreedor}" style="text-align: right" />
+                            </p:row>    
                             </p:columnGroup>
                             <f:facet name="footer">
                                 <p:commandButton id="printButton" icon="ui-icon-print"   value="#{bundlecontable.Print}" actionListener="#{plandecuentaController.prepareCreate}" update=":PlandecuentaCreateForm" oncomplete="PF('PlandecuentaCreateDialog').show()"/>

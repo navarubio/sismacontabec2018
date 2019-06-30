@@ -28,9 +28,9 @@
                                  selectionMode="single" selection="#{plandecuentaController.selected}"  style="width: 700px;"
                                  paginator="true"
                                  rowKey="#{item.idplandecuenta}"
-                                 rows="30"
+                                 rows="100"
                                  rowStyleClass="#{item.idgeneralcuenta> 0 ? 'facturaabonada' : null} #{item.idgeneralcuenta== 0 ? 'asientocuadrado' : null}"
-                                 rowsPerPageTemplate="30,40,50"
+                                 rowsPerPageTemplate="100,150"
                                  >
 
                         <p:column filterBy="#{item.codigocuenta}" filterMatchMode="exact" filterStyle="width:50px;">
@@ -49,20 +49,23 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundlecontable.ListPlandecuentaTitle_saldogeneral}"/>
                             </f:facet>
-                            <h:outputText value="#{item.saldogeneral}">
+                            <h:outputText value="#{item.saldogeneral}" rendered="#{item.idtiposaldocontable.idtiposaldocontable == 1  ? true:false}">
                                 <f:convertNumber type="currency" currencySymbol=" " />
                             </h:outputText>
                         </p:column>
-                        <p:column style="text-align: center">
+                        <p:column style="text-align: right" width="100" >
                             <f:facet name="header">
-                                <h:outputText value="#{bundlecontable.ListPlandecuentaTitle_idtipocuentacontable}"/>
+                                <h:outputText value="#{bundlecontable.ListPlandecuentaTitle_saldogeneral}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idtipocuentacontable.tipocuentacontable}"/>
+                            <h:outputText value="#{item.saldogeneral}" rendered="#{item.idtiposaldocontable.idtiposaldocontable == 2  ? true:false}">
+                                <f:convertNumber type="currency" currencySymbol=" " />
+                            </h:outputText>
                         </p:column>
                         <p:columnGroup type="footer">
                             <p:row>
                                 <p:column colspan="2" style="text-align:right" footerText="Comprobar Totales" />
-                                <p:column footerText="#{plandecuentasController.comprobacionTotal}" style="text-align: right" />
+                                <p:column footerText="#{plandecuentasController.comprobacionTotalDebe}" style="text-align: right" />
+                                <p:column footerText="#{plandecuentasController.comprobacionTotalHaber}" style="text-align: right" />
                             </p:row>
                         </p:columnGroup>
                         <f:facet name="footer">
