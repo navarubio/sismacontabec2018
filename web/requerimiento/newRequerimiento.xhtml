@@ -91,13 +91,13 @@
                                         <f:convertNumber type="currency" currencySymbol=""  />
                                     </h:outputText>
                                 </p:column>
-                                <p:column style="width:10%" headerText="Eliminar" >
+                                <p:column style="text-align: center" width="50px;" headerText="Eliminar" >
                                     <p:commandLink value="Eliminar" actionListener="#{requerimientosController.eliminar(req)}" styleClass="text-ouputfact" update="listado"  />
                                 </p:column>
 
                                 <p:columnGroup type="footer">
                                     <p:row>
-                                        <p:column colspan="6" style="text-align:right" footerText="Total del Requerimiento" />
+                                        <p:column colspan="6" style="text-align:right" footerText="TOTAL REQUERIMIENTO" />
                                         <p:column style="text-align: right"  footerText="$ #{requerimientosController.totalrequeriminto}" />
                                     </p:row>
                                 </p:columnGroup>                            
